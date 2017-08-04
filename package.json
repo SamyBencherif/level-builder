@@ -1,0 +1,15 @@
+{
+  "name": "level-builder",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Samy Bencherif",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "jquery-migrate": "^3.0.0",
+    "jqueryui": "^1.11.1"
+  }
+}

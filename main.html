@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<title>Level Builder</title>
+		<!-- CSS -->
+			<!-- Bootstrap (for Glyphicons)-->
+			<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+			<link href="modules/spectrum/spectrum.css" rel="stylesheet">
+			<link href="css/style.css" rel="stylesheet">
+	</head>
+	<body>
+
+		<!-- Left side panel with textures and level settings -->
+		<div id="menu">
+			<div class="panel">
+				<span class="panel-title">Level Properties</span>
+				<div class="properties-container">
+					<span class="property-title">grid size</span>
+					<input id="grid-size" oninput="updateGridSize(event);" onchange="$('#grid-size').val(grid_size);" class="property-value numeric-value" value="50"> <br>
+					<span class="property-title">snap to grid</span>
+					<input id="snap" type="checkbox" class="property-value" checked>
+				</div>
+			</div>
+			<div id="object-textures-panel" class="panel">
+				<span class="panel-title">Textures</span>
+				<div id="texture-container">
+				</div>
+				<hr>
+				<!-- $('#new-texture-panel').show().center().focus(); //do this with Image Selector -->
+				<button id="add-textures-button" onclick="importTextureDialog()">Add Textures</button>
+				<input id="texture-rep-img-picker" type="file" multiple>
+			</div>
+		</div>
+
+
+		<!-- Right side panel with object properties and list -->
+		<div id="inspector">
+			<div id="properties" class="panel" onclick="event.stopPropagation();">
+				<span class="panel-title">Objects Properties</span>
+				<div class="properties-container">
+					<span class="property-title">name</span> <input placeholder="untitled" id="property-name" class="property-value text-value">
+					<br>
+					<span class="property-title">x</span> <input id="property-x" class="property-value numeric-value">
+					<span class="property-title">y</span> <input id="property-y" class="property-value numeric-value">
+					<br>
+					<span class="property-title">w</span> <input id="property-w" class="property-value numeric-value">
+					<span class="property-title">h</span> <input id="property-h" class="property-value numeric-value">
+					<br>
+					<span class="property-title">angle</span> <input id="property-angle" class="property-value numeric-value">
+					<br>
+					<span class="property-title">texture</span> <select id="property-texture" class="property-value texture-value"></select>
+					<br>
+					<!-- tile texture --><input id="property-tiled" class="property-value" type="checkbox"> <label class="property-title" for="property-title">tiled texture</label>
+					<br>
+					<div id="tilingProperties">
+						<span class="property-title">Texture Settings</span>
+						<br>
+						<span class="property-title">x</span> <input id="property-tiling-x" class="property-value numeric-value">
+						<span class="property-title">y</span> <input id="property-tiling-y" class="property-value numeric-value">
+						<br>
+						<span class="property-title">sx</span> <input id="property-tiling-sx" class="property-value numeric-value">
+						<span class="property-title">sy</span> <input id="property-tiling-sy" class="property-value numeric-value">
+						<span class="property-title">dx</span> <input id="property-tiling-dx" class="property-value numeric-value">
+						<span class="property-title">dy</span> <input id="property-tiling-dy" class="property-value numeric-value">
+					</div>
+					<div style="height:5px"><!--This is a spacer--></div>
+				</div>
+			</div>
+			<div id="objects-list" class="panel">
+				<span class="panel-title">Objects<span>
+				<div style="height:5px"><!--This is a spacer--></div>
+			</div>
+		</div>
+
+		<!-- Grid -->
+		<div id="grid" ondrop="drop(event)" ondragover="allowDrop(event)" tabindex="0"></div>
+
+		<!-- Scripts and stuff -->
+		<script>if (typeof module === 'object'){window.module = module; module = undefined;}</script>
+
+		<script src="modules/simplerender/simplerender.js"></script>
+		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="node_modules/jqueryui/jquery-ui.min.js"></script>
+		<script src="modules/jquery_patch/jquery_patch.js"></script>
+		<script src="modules/spectrum/spectrum.js"></script>
+		<script src="js/levelObject.js"></script>
+		<script src="js/level.js"></script>
+		<script src="js/events.js"></script>
+		<script src="js/render_grid.js"></script>
+
+		<script>if (window.module) module = window.module;</script>
+	</body>
+</html>
