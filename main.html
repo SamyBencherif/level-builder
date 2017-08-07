@@ -4,8 +4,8 @@
 		<meta charset="UTF-8">
 		<title>Level Builder</title>
 		<!-- CSS -->
-			<!-- Bootstrap (for Glyphicons)-->
 			<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+			<link href="/node_modules/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
 			<link href="modules/spectrum/spectrum.css" rel="stylesheet">
 			<link href="css/style.css" rel="stylesheet">
 	</head>
@@ -29,7 +29,7 @@
 				<hr>
 				<!-- $('#new-texture-panel').show().center().focus(); //do this with Image Selector -->
 				<button id="add-textures-button" onclick="importTextureDialog()">Add Textures</button>
-				<input id="texture-rep-img-picker" type="file" multiple>
+				<!--<input id="texture-rep-img-picker" type="file" multiple>-->
 			</div>
 		</div>
 
@@ -76,18 +76,49 @@
 		<!-- Grid -->
 		<div id="grid" ondrop="drop(event)" ondragover="allowDrop(event)" tabindex="0"></div>
 
+		<!-- Texture Importer -->
+		<div id="tex-import-dialog" title="Texture Import Wizard" style="display: none;">
+				<div id="tabs">
+					<ul>
+						<li class="firstTab tab-selected">
+							<a onclick="texture_import_show_tab(event, 0)">Shapes<span class="count"></span></a>
+						</li>
+						<li>
+								<a onclick="texture_import_show_tab(event, 1)">Platformer Art Deluxe<span class="count"></span></a>
+						</li>
+						<li class="uploadTab" onclick="texture_import_show_tab(event, -1)">
+							<a onclick="texture_import_show_tab(event, -1)">File<span class="count"></span></a>
+						</li>
+					</ul>
+				</div>
+				<div class="scrollArea">
+					<div class="tab-content" data-tab-index="0" style="display:block;">
+						<div class="img-holder"><img src="/texture_packs/shapes/circle.png"><p>circle</p></div>
+						<div class="img-holder"><img src="/texture_packs/shapes/square.png"><p>square</p></div>
+					</div>
+					<div class="tab-content" data-tab-index="1">
+						<div class="img-holder"><img src="/texture_packs/platformerGraphicsDeluxe_Updated/Tiles/box.png"><p>box</p></div>
+					</div>
+					<div class="tab-content" data-tab-index="-1">
+						<input id="textureSelector" type="file" multiple onchange="fileSelected(event);">
+					</div>
+				</div>
+			</div>
+
 		<!-- Scripts and stuff -->
 		<script>if (typeof module === 'object'){window.module = module; module = undefined;}</script>
 
 		<script src="modules/simplerender/simplerender.js"></script>
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="node_modules/jqueryui/jquery-ui.min.js"></script>
+		<script src="/node_modules/jquery-migrate/dist/jquery-migrate.min.js"></script>
 		<script src="modules/jquery_patch/jquery_patch.js"></script>
 		<script src="modules/spectrum/spectrum.js"></script>
 		<script src="js/levelObject.js"></script>
 		<script src="js/level.js"></script>
 		<script src="js/events.js"></script>
 		<script src="js/render_grid.js"></script>
+		<script src="js/texture_import.js"></script>
 
 		<script>if (window.module) module = window.module;</script>
 	</body>

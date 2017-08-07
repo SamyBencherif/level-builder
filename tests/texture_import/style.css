@@ -1,0 +1,210 @@
+/* To be merged with main css */
+
+.ui-corner-all
+{
+	border-radius: 0px;
+}
+
+.ui-dialog
+{
+	padding: 0px;
+}
+
+#dialog
+{
+	overflow: hidden;
+	padding: 0px;
+}
+
+#tabs
+{
+	height: 30px;
+	border-right: none;
+	border-left: none;
+	padding: 0px;
+}
+
+#tabs ul::-webkit-scrollbar {
+display: none;
+}
+
+#tabs ul
+{
+	width: calc(100% - 100px);
+	overflow-x: scroll;
+	display: inline-flex;
+	height: 100%;
+	padding: 0px;
+	border: 0px;
+	background: white;
+}
+
+#tabs li
+{
+	transform: skewX(-10deg);
+	margin: 0px;
+	height: 100%;
+	padding: 5px;
+	left: -5px;
+	border-right: 1px solid black;
+}
+
+#tabs li.firstTab
+{
+	padding-left: 10px;
+}
+
+#tabs li.lastTab
+{
+	border-right: none;
+}
+
+#tabs li.uploadTab
+{
+	width: 100px;
+	position: absolute;
+	left: initial;
+	right: 0px;
+	top: 0px;
+	transform: skewX(-10deg);;
+	border-left: 1px solid rgba(0,0,0,.4);
+	border-right: initial;
+	text-align: center;
+}
+
+#tabs li.uploadTab a
+{
+	transform: skewX(10deg);
+}
+
+#tabs li a
+{
+	font-weight: normal;
+	/* I actually like the default font more now
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	*/
+	display: inline-block;
+	transform: skewX(10deg);
+	text-decoration: none;
+}
+
+#tabs li a:hover
+{
+	color: black;
+	cursor: pointer
+}
+
+.tab-content
+{
+	margin: 5px;
+}
+
+.tab-content img
+{
+	margin-left: 1px;
+	margin-top: 1px;
+	width: 98px;
+	height: 98px;
+	image-rendering: auto;
+}
+
+.tab-content .img-holder
+{
+	/*border: 1px solid black;*/
+	margin: 4px;
+	margin-bottom: 20px;
+	width: 100px;
+	height: 100px;
+	background: url("/css/checkerboard.bmp");
+	background-size: 20px;
+	image-rendering: pixelated;
+}
+
+/* checkcircle */
+.check-rounded {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	border: 1px solid #7e7e7e;
+	border-radius: 50px;
+	transition: .2s;
+}
+
+.check-rounded-true {
+	background: rgb(250, 185, 44);
+	border: none;
+}
+
+.check-rounded-true::after {
+	content: '';
+	width: 12px;
+	height: 6.5px;
+	position: absolute;
+	top: 5px;
+	left: 3px;
+	border: 1.5px solid #fcfff4;
+	border-top: none;
+	border-right: none;
+	background: transparent;
+	opacity: 1;
+	-webkit-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+}
+
+.check-rounded ~ input[type=checkbox] {
+	visibility: hidden;
+}
+/* end check circle */
+
+.img-holder
+{
+	position: relative;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+.img-holder .check-rounded
+{
+	position: absolute;
+	bottom: -1px;
+	right: 4px;
+}
+
+.img-holder p
+{
+	position: absolute;
+	left: 50%;
+	bottom: -30px;
+	transform: translate(-50%, 0);
+}
+
+.tab-content
+{
+	display: none;
+}
+
+.tab-selected
+{
+	background: #456ef4;
+}
+
+.tab-selected a
+{
+	color: #EEEEEE;
+}
+
+#tabs li.tab-selected a:hover
+{
+	color: white;
+}
+
+#textureSelector
+{
+	margin-bottom: 5px;
+}
+
+.scrollArea
+{
+	height: calc(100% - 30px);
+	overflow-y: scroll;
+}

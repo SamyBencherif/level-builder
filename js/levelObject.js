@@ -193,7 +193,6 @@ function levelObject(x,y)
 							this.angle = parseFloat(v);
 							break;
 						case 'property-texture':
-							//#couldbreak if v is no longer string of texture name
 							this.texture = v;
 							this.updateNameNTexture();
 							break;

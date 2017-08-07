@@ -1,0 +1,46 @@
+<head>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/jqueryui/jquery-ui.min.js"></script>
+<script src="/node_modules/jquery-migrate/dist/jquery-migrate.min.js"></script>
+<script src="/modules/jquery_patch/jquery_patch.js"></script>
+<script src="/modules/spectrum/spectrum.js"></script>
+
+<link href="/node_modules/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet">
+<link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div id="dialog" title="Texture Import Wizard">
+	<div id="tabs">
+		<ul>
+			<li class="firstTab tab-selected">
+				<a onclick="texture_import_show_tab(event, 0)">Shapes<span class="count"></span></a>
+			</li>
+			<li>
+					<a onclick="texture_import_show_tab(event, 1)">Platformer Art Deluxe<span class="count"></span></a>
+			</li>
+			<li class="uploadTab" onclick="texture_import_show_tab(event, -1)">
+				<a onclick="texture_import_show_tab(event, -1)">File<span class="count"></span></a>
+			</li>
+		</ul>
+	</div>
+	<div class="scrollArea">
+		<div class="tab-content" data-tab-index="0" style="display:block;">
+			<div class="img-holder"><img src="/texture_packs/shapes/circle.png"><p>circle</p></div>
+			<div class="img-holder"><img src="/texture_packs/shapes/square.png"><p>square</p></div>
+		</div>
+		<div class="tab-content" data-tab-index="1">
+			<div class="img-holder"><img src="/texture_packs/platformerGraphicsDeluxe_Updated/Tiles/box.png"><p>box</p></div>
+		</div>
+		<div class="tab-content" data-tab-index="-1">
+			<input id="textureSelector" type="file" multiple onchange="fileSelected(event);">
+		</div>
+	</div>
+</div>
+
+<script src="texture_import.js"></script>
+
+</body>

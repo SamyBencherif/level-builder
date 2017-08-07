@@ -337,22 +337,62 @@ function textureInit(textureName, textureIcon){
 	return newTexture;
 }
 
+function resetTextureImport()
+{
+	//selects first tab
+	$('#tex-import-dialog .tab-content').hide();
+	$('#tex-import-dialog .tab-content[data-tab-index=0]').show();
+	$('#tex-import-dialog .tab-selected').removeClass('tab-selected');
+	$('#tex-import-dialog ul li').eq(0).addClass('tab-selected')
+
+
+	//unchecks all checkboxes in dialog
+	$('#tex-import-dialog input[type="checkbox"]:checked').prop('checked', false);
+	$('#tex-import-dialog .check-rounded-true').removeClass('check-rounded-true');
+
+	//clears tab counts
+	$('#tex-import-dialog .count').html("");
+
+	//empties file tab (warning: #couldbreak duplicate definition)
+	$('#tex-import-dialog .tab-content[data-tab-index=-1]').html('<input id="textureSelector" type="file" multiple onchange="fileSelected(event);">')
+}
+
 function importTextureDialog()
 {
-	var picker = $('#texture-rep-img-picker')[0];
-	if ('files' in picker)
-	{
-		for (var i=0; i<picker.files.length; i++)
-		{
-			var file = picker.files[i];
-			var reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = function (ev)
+	$('#tex-import-dialog').dialog({
+		width: 500,
+		height: 350,
+		buttons: [
 			{
-				createNewTexture(this.name.replace(/\.[^/.]+$/, ""), ev.target.result);
-			}.bind(file)
-		}
-	}
+			text: "CANCEL",
+			click: function dialogCancel()
+				{
+					resetTextureImport();
+					$( this ).dialog( "close" );
+				}
+			},
+			{
+			text: "IMPORT",
+			click: function dialogImport()
+				{
+					$('#tex-import-dialog .tab-content').each(function(index, element)
+					{
+						$(element).find('.img-holder').each(function(index, element)
+						{
+							if ($(element).find('input[type="checkbox"]:checked').length != 0)
+							{
+								var name = $(element).attr('data-full-name') || $(element).find('p').html();
+								createNewTexture(name, $(element).find('img').attr('src'))
+							}
+						})
+					})
+
+					resetTextureImport();
+					$( this ).dialog( "close" );
+				}
+			},
+		]
+	});
 }
 
 //#TODO sep into own file
@@ -493,7 +533,7 @@ $('#properties').hide();
 $('#objects-list').hide();
 
 //temporary debug thing #TODO remove
-
+/*
 var funImg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARSSURBVHhe7ZxbUtNQHMazA5fgEnxVrpWbCGVcgk8qCgJeuCMVqDO+8eIo6iCioqhc5CIgVVmCS3AJLCHmS5P6t3xO0jbn5LQhM7+HJiHJ95uT5GuG1Cqeco/bzuSyPVcc5nPZ9BE4zKZ/OZ/tWiCfJZ/L+Tz/Pdt9FZm9+HzKPUpncnM9x8Ubq3mQ2cnuafg75UeJa9BdcS/Tae9Mtdtb460uX8Za7I2RVE2ALH4uZNyb7rQP59Ju7sNsz5KnJD85M53TpsfefdBBN5YEkN0bGPOulJ+z6XOYAYPsD5LE9mSbO3p+ZLvOWhg+mMFWTCJw4Y6a/UznEVshycCJ5Rg6FVMERo21NdH2iy1MOtbpRZdjsZkM3PP3H14u4N3a7IPZbvvlrXr7ybXzRvLiZp3LYl+9/eFOE83GCCXmYKarIOJ/vBlqpgdmGhDEMhYTKMa7fYXi03Cr/fp2o1FABMCoeXbjgivn3WAjzSoJFCNPmzBsjnfQAzQFnPYQxLJKAsWw8EF8mbxED8oUFnpjEgMgZ3mgiR5Y3Cz2Ndhr95tpXh9lYsDXTJexclhWiVIxwFQ5LKtEuRiwP9Ntr9xJ0QOMC5ZVokUM+DabNkoOyyrRJgZAzvu7F+mB6oZllQSK2ZkurceEwYQiyLJKAsU8ve7c8ycKj/0iI245LKskUIz/HWNtrJ0GrIQ4iyDLKgkUI785fxxppQErIS45LKskUAw2gqboy8G3aBawEranOrV3HZZVEkoMUC1HdxFkWSWhxYBX/Q3OxTgvB6cYHlKxkOWiUw7LKilJDFhSLEdXEWRZJSWLAZDjP/RZ6K2LvOvokMOySsoS44PnGpCDrqNCzur9FrrfKGBZJRWJAc+dEePLqaYiyLJKKhYDZNdRUQQ/j7bR/VYCyyqJRAyotiLIskoiEwNUd50o5bCskkjFANVydp2LfBRdh2WVRC4GVEMRZFklSsQA1UUQct4ONtN9h4FllSgTA0wugiyrRKkYH9VFsBw5LKtEixigsghCTqlFkGWVaBMDVBfBUuSwrBKtYoBqOevONtl+i2FZJdrFABOKIMsqiUUMiFsOyyqJTQyQRXCxv1FrEWRZJbGKATqKIJPDskpiFwNkEYScqLsO5BR3HZZVYoQYH51FkGWVGCUGyCK4NXWJhiwXKYdllRgnBugogiyrxEgxQLUcllVirBigsuuwrBKjxQBVclhWifFigIoiyLJKqkIMiLoIsqySqhEDoiyCLKukqsT4RFEEWVZJoBi8qcEOLm4qKYJ4zYhllQSKWb2r5/9VyqHcroOX0lhWSaAYsDJUO3LCjBYQSgzAa3PLA/zg4iZM18GL5qX8EoG1MZw6ZguSDsScvnddjOPE2hxJZejCBLM5nBq01u+1nGULk8ynUe+HdtZHUvNshSSCM8iV4k/rw6kltmKSgANPx78Tzq1E3qWczCdGSvGEa453av0+sYHa4zeEFK4phcmy/gD9+xtnVhO0rAAAAABJRU5ErkJggg==";
 
 createNewTexture('fun', funImg)
@@ -510,3 +550,4 @@ objectsList.slideDown();
 unselectAllObjects();
 
 objects[objects.length-1].select();
+*/
