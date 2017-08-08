@@ -68,15 +68,13 @@ function drop(ev){
 	lvlObj.updateRenderer();
 
 	objects.push(lvlObj);
-	objectsList.slideDown();
+	//objectsList.slideDown();
 
 
 	//unselect all objects
 	unselectAllObjects();
 
 	objects[objects.length-1].select();
-
-	//$('#properties').slideDown();
 }
 
 function updateGridSize(ev){
@@ -122,12 +120,31 @@ $('#new-texture-panel').on('keydown', function(ev)
 })
 */
 
+function propertiesDisable()
+{
+	$('#properties input,textarea,select,button').each(function(index, element)
+	{
+		$(element).val('');
+		$(element).prop('disabled', true)
+	})
+}
+
+function propertiesEnable()
+{
+	$('#properties input,textarea,select,button').each(function(index, element)
+	{
+		$(element).prop('disabled', false)
+	})
+}
+
 $('#inspector').click(function(){
 	unselectAllObjects();
 	if ($('.entry-selected').length == 0)
   {
     //nothing was selected
-    $('#properties').slideUp();
+		//$('#properties').slideUp();
+		//#TODO: disable
+		propertiesDisable();
   }
 });
 
@@ -205,7 +222,9 @@ $('#grid').on('mousedown', function gridMouseDown(ev){
 	if ($('.entry-selected').length == 0)
 	{
 	//nothing was selected
-	$('#properties').slideUp();
+	//#TODO: disable
+		propertiesDisable();
+	//$('#properties').slideUp();
 	}
 
 });
@@ -514,7 +533,7 @@ function createNewTexture(name, img)
 	//new texture
 	$('#texture-container').append(newTexture)
 	//close dialog
-	$('#new-texture-panel').hide();
+	//$('#new-texture-panel').hide();
 
 	globallyUpdateTextures();
 
@@ -524,13 +543,10 @@ function createNewTexture(name, img)
 $('.texture').each(textureInit)
 updateTextureDropDown();
 
-$('#new-texture-panel').draggable({'handle': '.title-bar'});
-$('#new-texture-panel').hide();
+//$('#new-texture-panel').draggable({'handle': '.title-bar'});
+//$('#new-texture-panel').hide();
 
 objectsList = $('#objects-list');
-
-$('#properties').hide();
-$('#objects-list').hide();
 
 //temporary debug thing #TODO remove
 /*

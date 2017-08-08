@@ -105,9 +105,6 @@ function levelObject(x,y)
 
 	this.unselect = function()
 	{
-		//$('#properties').hide();
-		//$('#properties').slideUp();
-
 		this.selected = false;
 		this.entry.removeClass('entry-selected');
 
@@ -128,7 +125,8 @@ function levelObject(x,y)
 
 	this.select = function()
 	{
-		$('#properties').slideDown();
+		//$('#properties').slideDown();
+		propertiesEnable();
 
 		//this.reassignIndices();
 
@@ -236,7 +234,7 @@ function levelObject(x,y)
 	{
 		if (this.selected)
 		{
-			$('#properties').slideUp();
+			propertiesDisable();
 		}
 
 		//this.reassignIndices();

@@ -11,6 +11,23 @@
 	</head>
 	<body>
 
+		<!-- File Menu -->
+		<div style="width:100%; height: 22px;background:#D7D7D7">
+		<ul style="height: 22px; width: 30px; display: none;" id="file-menu">
+			<li>
+				<div>File</div>
+				<ul>
+					<li><a onclick="exportLvl();">Export Level</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Level Export Dialog -->
+	<div id="export-dialog" title="Export Level" style="display: none;">
+		<p>[]</p>
+	</div>
+
 		<!-- Left side panel with textures and level settings -->
 		<div id="menu">
 			<div class="panel">
@@ -39,30 +56,30 @@
 			<div id="properties" class="panel" onclick="event.stopPropagation();">
 				<span class="panel-title">Objects Properties</span>
 				<div class="properties-container">
-					<span class="property-title">name</span> <input placeholder="untitled" id="property-name" class="property-value text-value">
+					<span class="property-title">name</span> <input disabled placeholder="untitled" id="property-name" class="property-value text-value">
 					<br>
-					<span class="property-title">x</span> <input id="property-x" class="property-value numeric-value">
-					<span class="property-title">y</span> <input id="property-y" class="property-value numeric-value">
+					<span class="property-title">x</span> <input disabled id="property-x" class="property-value numeric-value">
+					<span class="property-title">y</span> <input disabled id="property-y" class="property-value numeric-value">
 					<br>
-					<span class="property-title">w</span> <input id="property-w" class="property-value numeric-value">
-					<span class="property-title">h</span> <input id="property-h" class="property-value numeric-value">
+					<span class="property-title">w</span> <input disabled id="property-w" class="property-value numeric-value">
+					<span class="property-title">h</span> <input disabled id="property-h" class="property-value numeric-value">
 					<br>
-					<span class="property-title">angle</span> <input id="property-angle" class="property-value numeric-value">
+					<span class="property-title">angle</span> <input disabled id="property-angle" class="property-value numeric-value">
 					<br>
-					<span class="property-title">texture</span> <select id="property-texture" class="property-value texture-value"></select>
+					<span class="property-title">texture</span> <select disabled id="property-texture" class="property-value texture-value"></select>
 					<br>
-					<!-- tile texture --><input id="property-tiled" class="property-value" type="checkbox"> <label class="property-title" for="property-title">tiled texture</label>
+					<!-- tile texture --><input disabled id="property-tiled" class="property-value" type="checkbox"> <label class="property-title" for="property-title">tiled texture</label>
 					<br>
 					<div id="tilingProperties">
 						<span class="property-title">Texture Settings</span>
 						<br>
-						<span class="property-title">x</span> <input id="property-tiling-x" class="property-value numeric-value">
-						<span class="property-title">y</span> <input id="property-tiling-y" class="property-value numeric-value">
+						<span class="property-title">x</span> <input disabled id="property-tiling-x" class="property-value numeric-value">
+						<span class="property-title">y</span> <input disabled id="property-tiling-y" class="property-value numeric-value">
 						<br>
-						<span class="property-title">sx</span> <input id="property-tiling-sx" class="property-value numeric-value">
-						<span class="property-title">sy</span> <input id="property-tiling-sy" class="property-value numeric-value">
-						<span class="property-title">dx</span> <input id="property-tiling-dx" class="property-value numeric-value">
-						<span class="property-title">dy</span> <input id="property-tiling-dy" class="property-value numeric-value">
+						<span class="property-title">sx</span> <input disabled id="property-tiling-sx" class="property-value numeric-value">
+						<span class="property-title">sy</span> <input disabled id="property-tiling-sy" class="property-value numeric-value">
+						<span class="property-title">dx</span> <input disabled id="property-tiling-dx" class="property-value numeric-value">
+						<span class="property-title">dy</span> <input disabled id="property-tiling-dy" class="property-value numeric-value">
 					</div>
 					<div style="height:5px"><!--This is a spacer--></div>
 				</div>
@@ -80,10 +97,10 @@
 		<div id="tex-import-dialog" title="Texture Import Wizard" style="display: none;">
 				<div id="tabs">
 					<ul>
-						<li class="firstTab tab-selected">
+						<li class="firstTab">
 							<a onclick="texture_import_show_tab(event, 0)">Shapes<span class="count"></span></a>
 						</li>
-						<li>
+						<li class="tab-selected">
 								<a onclick="texture_import_show_tab(event, 1)">Platformer Art Deluxe<span class="count"></span></a>
 						</li>
 						<li class="uploadTab" onclick="texture_import_show_tab(event, -1)">
@@ -92,13 +109,8 @@
 					</ul>
 				</div>
 				<div class="scrollArea">
-					<div class="tab-content" data-tab-index="0" style="display:block;">
-						<div class="img-holder"><img src="/texture_packs/shapes/circle.png"><p>circle</p></div>
-						<div class="img-holder"><img src="/texture_packs/shapes/square.png"><p>square</p></div>
-					</div>
-					<div class="tab-content" data-tab-index="1">
-						<div class="img-holder"><img src="/texture_packs/platformerGraphicsDeluxe_Updated/Tiles/box.png"><p>box</p></div>
-					</div>
+					<div class="tab-content" data-tab-index="0"></div>
+					<div class="tab-content" data-tab-index="1" style="display:block;"></div>
 					<div class="tab-content" data-tab-index="-1">
 						<input id="textureSelector" type="file" multiple onchange="fileSelected(event);">
 					</div>
@@ -118,7 +130,9 @@
 		<script src="js/level.js"></script>
 		<script src="js/events.js"></script>
 		<script src="js/render_grid.js"></script>
+		<script src="js/builtin_textures.js"></script> <!-- must be before texture_import.js -->
 		<script src="js/texture_import.js"></script>
+		<script src="js/file_menu.js"></script>
 
 		<script>if (window.module) module = window.module;</script>
 	</body>
