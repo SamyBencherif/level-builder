@@ -439,7 +439,7 @@ display: none;
 	margin-bottom: 20px;
 	width: 100px;
 	height: 100px;
-	background: url("/css/checkerboard.bmp");
+	background: url("checkerboard.bmp");
 	background-size: 20px;
 	image-rendering: pixelated;
 }
